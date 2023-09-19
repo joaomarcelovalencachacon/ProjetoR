@@ -1,12 +1,30 @@
 library(shiny)
 library(shinydashboard)
 
-ui <- dashboardPage(
-  dashboardHeader(),
-  dashboardSidebar(),
-  dashboardBody()
+header <- dashboardHeader(title = "Projeto-R")
+
+sidebar <- dashboardSidebar(
+  sidebarMenu(
+    menuItem("Métricas", tabName = "m", icon = icon("stats", lib = "glyphicon")),
+    menuItem('Comparações', tabName = 'c', icon = icon("chart-line"))
+  )
 )
 
-server <- function(input, output) { }
+body <- dashboardBody(
+  tabItem(tabName = 'c',
+          fluidRow(
+            box(title = 'Selecione 2 classes',
+                width=12,
+                solidHeader = TRUE,
+                status = 'info',
+                selectInput('column_c', 'Dados', columns, multiple=TRUE),
+                uiOutput("timedate_c"),
+                actionButton('finish_c', 'Avançar')
+            )
+          )
+)
+)
 
-shinyApp(ui, server)
+ui <- dashboardPage(
+  header, sidebar, body
+)
