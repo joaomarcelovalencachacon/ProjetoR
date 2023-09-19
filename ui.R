@@ -1,5 +1,8 @@
 library(shiny)
 library(shinydashboard)
+library(shinyWidgets)
+install.packages("DT")
+library(DT)
 
 header <- dashboardHeader(title = "Projeto-R")
 
@@ -13,7 +16,7 @@ sidebar <- dashboardSidebar(
 body <- dashboardBody(
   tabItem(tabName = 'c',
           fluidRow(
-            box(title = 'Selecione 2 classes',
+            box(title = 'Selecione as classes',
                 width=12,
                 solidHeader = TRUE,
                 status = 'info',
@@ -21,7 +24,13 @@ body <- dashboardBody(
                 uiOutput("timedate_c"),
                 actionButton('finish_c', 'Avançar')
             )
-          )
+          ),
+          fluidRow(
+            box(title = "Correlação entre as colunas", width = 12, solidHeader = TRUE,
+                DTOutput('info_correlation')
+            )
+          ),
+          
 )
 )
 
