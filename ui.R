@@ -6,7 +6,7 @@ header <- dashboardHeader(title = "Projeto-R")
 sidebar <- dashboardSidebar(
   sidebarMenu(
     menuItem("Métricas", tabName = "m", icon = icon("stats", lib = "glyphicon")),
-    menuItem('Comparações', tabName = 'c', icon = icon("chart-line"))
+    menuItem('Comparações', tabName = "c", icon = icon("chart-line"))
   )
 )
 
