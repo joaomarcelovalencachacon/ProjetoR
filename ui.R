@@ -35,10 +35,15 @@ body <- dashboardBody(
             )
           ),
           fluidRow(
-            box(title = "Grafico de barra_média", width = 12, solidHeader = TRUE,
+            box(title = "Grafico de barra média", width = 12, solidHeader = TRUE,
                 plotOutput('barras_media')
             )
           ),
+          fluidRow(
+            box(title = "Grafico de dispersão", width = 12, solidHeader = TRUE,
+                plotOutput('dispersao')
+            )
+          )
           
   )
 )

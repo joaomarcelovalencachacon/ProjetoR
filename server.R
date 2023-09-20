@@ -142,6 +142,33 @@ server <- function(input, output){
       print(m) 
     }
   })
+
+  output$dispersao <- renderPlot({
+    
+    # All the inputs
+    df <- select_column_c()
+    column_name <- input$column_c
+    twin <- input$true_date_c
+    
+    datacut <- df[df$date >= twin[1] & df$date <= twin[2],]
+    
+    auxA <- datacut[, column_name[1]]
+    auxB <- datacut[, column_name[2]]
+    
+    datacut$date <- ymd(datacut$date)
+    
+    dados <- data.frame(
+      auxA,
+      auxB
+    )
+    
+    # Criar o gráfico de dispersão
+    a <- ggplot(dados, aes(x = auxA, y = auxB)) +
+      geom_point() + # Adicionar pontos
+      labs(x = column_name[1], y = column_name[2], title = "Gráfico de Dispersão")
+    
+    print(a)
+  })
   
   
   
