@@ -19,6 +19,7 @@ body <- dashboardBody(
                 solidHeader = TRUE,
                 status = 'info',
                 selectInput('column_c', 'Dados', columns, multiple=TRUE),
+                selectInput('selected_city', 'Cidade', cities, multiple=FALSE),
                 uiOutput("timedate_c"),
                 actionButton('finish_c', 'Avançar')
             )
@@ -31,6 +32,11 @@ body <- dashboardBody(
           fluidRow(
             box(title = "Gráfico de linha", width = 12, solidHeader = TRUE,
                 plotOutput('linha')
+            )
+          ),
+          fluidRow(
+            box(title = "Grafico de barra_média", width = 12, solidHeader = TRUE,
+                plotOutput('barras_media')
             )
           ),
           
