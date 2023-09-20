@@ -1,7 +1,11 @@
 server <- function(input, output){
   
   select_column_c <- eventReactive(input$finish_c, {
-    df_column <- dataset 
+    
+    dados_filtrados <- dataset %>%
+      filter(City %in% c(input$selected_city))
+    
+    df_column <- dados_filtrados
     return(df_column)
   })
   
@@ -9,7 +13,10 @@ server <- function(input, output){
     
     column_name <- input$column_c
     
-    df <- dataset
+    dados_filtrados <- dataset %>%
+      filter(City %in% c(input$selected_city))
+    
+    df <- dados_filtrados
     
     dates <- df$date 
     
@@ -63,7 +70,7 @@ server <- function(input, output){
     }
   })
   
-  output$sh <- renderPlot({
+  output$linha <- renderPlot({
     df <- select_column_c()
     column_name <- input$column_c
     twin <- input$true_date_c
@@ -72,7 +79,7 @@ server <- function(input, output){
     
     
     aux <- datacut[, column_name]
-
+    
     aux1 <- min(aux)
     aux2 <- max(aux)
     print("aux 1")
@@ -89,7 +96,7 @@ server <- function(input, output){
     variavel2 <- aux[2]
     
     tempo <- datacut$date
-
+    
     a <- ggplot(data = datacut, aes(x = date)) +
       geom_line(aes(y = .data[[column_name[1]]]), color = "#069808", size = 1, alpha = 0.8) +
       geom_line(aes(y = .data[[column_name[2]]]), color = "#FF5733", size = 1, alpha = 0.8) +
@@ -99,7 +106,41 @@ server <- function(input, output){
       scale_x_date(date_labels = "%Y-%m-%d")
     
     print(a)
-
+    
+  })
+  
+  output$barras_media <- renderPlot({
+    column_name <- input$column_c
+    if (length(column_name)>1){
+      df <- select_column_c()
+      twin <- input$true_date_c
+      
+      datacut <- df[df$date >= twin[1] & df$date <= twin[2],]
+      
+      datacut$date <- ymd(datacut$date)
+      
+      vector_1 <- datacut[, c(column_name[1])]
+      vector_2 <- datacut[, c(column_name[2])]
+      
+      mean_1 <- mean(vector_1)
+      mean_2 <- mean(vector_2)
+      
+      columns <- c(column_name[1], column_name[2])
+      means <- c(mean_1, mean_2)
+      
+      df_plot <- data.frame(columns, means)
+      
+      colors <- c("#069808", "#FF5733")
+      
+      m <- ggplot(df_plot, aes(x = columns, y = means, fill = columns)) +
+        geom_bar(stat = "identity", position = "dodge") +
+        scale_fill_manual(values = colors) +
+        coord_flip() +
+        labs(x = NULL, y = NULL) +
+        theme_minimal()
+      
+      print(m) 
+    }
   })
   
   
