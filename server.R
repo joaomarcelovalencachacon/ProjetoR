@@ -12,7 +12,7 @@ server <- function(input, output){
     df <- dataset
     
     dates <- df$date 
- 
+    
     min_time <- (min(dates)) 
     max_time <- (max(dates))
     
@@ -63,5 +63,45 @@ server <- function(input, output){
     }
   })
   
+  output$sh <- renderPlot({
+    df <- select_column_c()
+    column_name <- input$column_c
+    twin <- input$true_date_c
+    
+    datacut <- df[df$date >= twin[1] & df$date <= twin[2],]
+    
+    
+    aux <- datacut[, column_name]
 
+    aux1 <- min(aux)
+    aux2 <- max(aux)
+    print("aux 1")
+    print(aux1)
+    print("aux 2")
+    print(aux2)
+    print("column names")
+    print(column_name)
+    
+    datacut$date <- ymd(datacut$date)
+    
+    tempo <- datacut$date
+    variavel1 <- aux[1]
+    variavel2 <- aux[2]
+    
+    tempo <- datacut$date
+
+    a <- ggplot(data = datacut, aes(x = date)) +
+      geom_line(aes(y = .data[[column_name[1]]]), color = "#069808", size = 1, alpha = 0.8) +
+      geom_line(aes(y = .data[[column_name[2]]]), color = "#FF5733", size = 1, alpha = 0.8) +
+      ylab(toString(column_name)) +
+      coord_cartesian(ylim = c(aux1, aux2)) +
+      theme_bw() +
+      scale_x_date(date_labels = "%Y-%m-%d")
+    
+    print(a)
+
+  })
+  
+  
+  
 }
