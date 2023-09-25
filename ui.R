@@ -16,7 +16,7 @@ body <- dashboardBody(
   tabItems(
     tabItem(tabName = 'c',
             fluidRow(
-              box(title = 'Selecione 2 classes',
+              box(title = 'Selecione 2 opções',
                   width=12,
                   solidHeader = TRUE,
                   status = 'info',
@@ -37,12 +37,12 @@ body <- dashboardBody(
               )
             ),
             fluidRow(
-              box(title = "Grafico de barra média", width = 12, solidHeader = TRUE,
+              box(title = "Gráfico de barra das médias", width = 12, solidHeader = TRUE,
                   plotOutput('barras_media')
               )
             ),
             fluidRow(
-              box(title = "Grafico de dispersão", width = 12, solidHeader = TRUE,
+              box(title = "Gráfico de dispersão", width = 12, solidHeader = TRUE,
                   plotOutput('dispersao')
               )
             )
@@ -63,28 +63,28 @@ body <- dashboardBody(
             fluidRow(
               box(title = "Tabela", width = 12, solidHeader = TRUE,
                   DTOutput('info_m')
-            ),
-            fluidRow(
-              box(title = "Gráfico em linha da série", width = 12, solidHeader = TRUE,
-                  plotOutput('linha_m')
-              )
-            ),
-            fluidRow(
-              box(title = "Histograma da série", width = 12, solidHeader = TRUE,
-                  plotOutput('hist_m')
-              )
-            ),
-            fluidRow(
-              box(title = "Boxplot da série.", width = 12, solidHeader = TRUE,
-                  plotOutput('boxplot_m')
+              ),
+              fluidRow(
+                box(title = "Gráfico em linha da série", width = 12, solidHeader = TRUE,
+                    plotOutput('linha_m')
+                )
+              ),
+              fluidRow(
+                box(title = "Histograma da série", width = 12, solidHeader = TRUE,
+                    plotOutput('hist_m')
+                )
+              ),
+              fluidRow(
+                box(title = "Boxplot da série", width = 12, solidHeader = TRUE,
+                    plotOutput('boxplot_m')
+                )
               )
             )
+            
+            
     )
     
-    
   )
-    
-)
 )
 
 ui <- dashboardPage(
